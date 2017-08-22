@@ -39,7 +39,7 @@ def _read_json(fn_json):
     with open(fn_json) as handle:
         data = json.load(handle)
         for item in data[0].values():
-            seqs_name = map(lambda (x): x.keys(), item['seqs'])
+            seqs_name = map(lambda x: x.keys(), item['seqs'])
             db_name = item['valid'] if "valid" in item else None
             [is_json.add(name[0]) for name in seqs_name]
             if db_name:
