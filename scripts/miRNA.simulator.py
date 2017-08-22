@@ -129,11 +129,16 @@ for line in fas:
                                                 trial =random.randint(1, 100)
                                                 p = random.randint(1, 50) / 50.0
                                                 exp = "_x%s" % numpy.random.negative_binomial(trial, p, 1)[0]
-                                            print >>fqout, "@%s%s" % (randName, exp)
-                                            print >>fqout, "%s" % randSeq
-                                            print >>fqout, "+\n%s" % "".join(["I"] * len(randSeq))
-                                            print >>fout, ">%s%s" % (randName, exp)
-                                            print >>fout, "%s" % randSeq
+                                            #print >>fqout, "@%s%s" % (randName, exp)
+					    print ("@%s%s" % (randName, exp),file=fqout)
+                                            #print >>fqout, "%s" % randSeq
+					    print ("%s" % randSeq,file=fqout)
+                                            #print >>fqout, "+\n%s" % "".join(["I"] * len(randSeq))
+					    print ("+\n%s" % "".join(["I"] * len(randSeq)),file=fqout)
+                                            #print >>fout, ">%s%s" % (randName, exp)
+					    print (">%s%s" % (randName, exp),file=fqout)
+                                            #print >>fout, "%s" % randSeq
+					    print ("%s" % randSeq,file=fqout)
                                             data[randSeq]=1
                 name = line.split(" ")
                 name = name[0].replace(">","")
