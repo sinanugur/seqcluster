@@ -56,8 +56,10 @@ def _filter_seqs(fn):
                         counts = _get_freq(fixed_name)
                         if len(seq) < 26 and (counts > 1 or counts == 0):
                             idx += 1
-                            print >>out_handle, fixed_name
-                            print >>out_handle, seq
+                            #print >>out_handle, fixed_name
+                            print (fixed_name,file=out_handle)
+                            #print >>out_handle, seq
+                            print (seq,file=out_handle)
                         try:
                             if line.startswith("@"):
                                 in_handle.next()
@@ -82,8 +84,10 @@ def _convert_to_fasta(fn):
                 if line.find("_x"):
                     count = int(line.strip().split("_x")[1])
                 if count > 1:
-                    print >>out_handle, ">%s" % line.strip()[1:]
-                    print >>out_handle, seq.strip()
+                    #print >>out_handle, ">%s" % line.strip()[1:]
+                    print (">%s" % line.strip()[1:],file=out_handle)
+                    #print >>out_handle, seq.strip()
+                    print (seq.strip(),file=out_handle)
     return out_file
 
 def _get_pos(string):
@@ -361,7 +365,8 @@ def _tab_output(reads, out_file, sample):
     seen_ann = {}
     dt = None
     with open(out_file, 'w') as out_handle:
-        print >>out_handle, "name\tseq\tfreq\tchrom\tstart\tend\tsubs\tadd\tt5\tt3\ts5\ts3\tDB\tprecursor\thits"
+        #print >>out_handle, "name\tseq\tfreq\tchrom\tstart\tend\tsubs\tadd\tt5\tt3\ts5\ts3\tDB\tprecursor\thits"
+        print ("name\tseq\tfreq\tchrom\tstart\tend\tsubs\tadd\tt5\tt3\ts5\ts3\tDB\tprecursor\thits",file=out_handle)
         for r, read in reads.iteritems():
             hits = set()
             [hits.add(mature.mirna) for mature in read.precursors.values() if mature.mirna]
@@ -387,7 +392,8 @@ def _tab_output(reads, out_file, sample):
                     seen_ann[annotation] = res
                     lines.append([annotation, chrom, count, sample, hits])
                     lines_pre.append([annotation, chrom, p, count, sample, hits])
-                    print >>out_handle, res
+                    #print >>out_handle, res
+                    print (res,file=out_handle)
 
     if lines:
         dt = pd.DataFrame(lines)
@@ -486,4 +492,4 @@ def miraligner(args):
         _create_counts(out_dts, args.out)
         # _summarize(out_dts)
     else:
-        print "No files analyzed!"
+        print ("No files analyzed!")
