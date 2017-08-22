@@ -172,10 +172,10 @@ def _get_annotation(c, loci):
     counts = Counter()
     for lid in c.loci2seq:
         for dbi in loci[lid].db_ann.keys():
-            data_ann_temp[dbi] = {dbi: map(lambda (x): loci[lid].db_ann[dbi].ann[x].name, loci[lid].db_ann[dbi].ann.keys())}
+            data_ann_temp[dbi] = {dbi: map(lambda x: loci[lid].db_ann[dbi].ann[x].name, loci[lid].db_ann[dbi].ann.keys())}
             logger.debug("_json_: data_ann_temp %s %s" % (dbi, data_ann_temp[dbi]))
             counts[dbi] += 1
-        data_ann = data_ann + map(lambda (x): data_ann_temp[x], data_ann_temp.keys())
+        data_ann = data_ann + map(lambda x: data_ann_temp[x], data_ann_temp.keys())
         logger.debug("_json_: data_ann %s" % data_ann)
     counts = {k: v for k, v in counts.iteritems()}
     total_loci = sum([counts[db] for db in counts])
@@ -312,11 +312,11 @@ def _create_json(clusL, args):
             bed_line = "%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (chrom, s, e, annotation, cid, st, len(seqList))
             out_bed.write(bed_line)
 
-            data_seqs = map(lambda (x): {x: seqs[x].seq}, seqList)
+            data_seqs = map(lambda x: {x: seqs[x].seq}, seqList)
             scaled_seqs = _get_counts(seqList, seqs, c.idmembers)
-            data_freq = map(lambda (x): scaled_seqs[x].freq, seqList)
-            data_freq_w_id = map(lambda (x): {x: scaled_seqs[x].norm_freq}, seqList)
-            data_len = map(lambda (x): seqs[x].len, seqList)
+            data_freq = map(lambda x: scaled_seqs[x].freq, seqList)
+            data_freq_w_id = map(lambda x: {x: scaled_seqs[x].norm_freq}, seqList)
+            data_len = map(lambda x: seqs[x].len, seqList)
             sum_freq = _sum_by_samples(scaled_seqs, samples_order)
 
             data_ann_str = [["%s::%s" % (name, ",".join(features)) for name, features in k.iteritems()] for k in data_ann]
